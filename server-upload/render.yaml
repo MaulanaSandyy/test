@@ -1,0 +1,20 @@
+database:
+  plan: free
+  multiServer: false
+
+services:
+  - type: web
+    name: secure-code-server
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn server:app --bind 0.0.0.0:$PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: ADMIN_TOKEN
+        value: "ganti-dengan-token-admin-yang-lebih-secure"
+      - key: MASTER_KEY
+        value: "c1a12885165e153725782ba039ee645f12997cde9c93aa1266193d50404e4786"
+      - key: PYTHON_VERSION
+        value: "3.11"
